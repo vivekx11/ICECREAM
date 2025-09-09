@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sahaidunny Ice Cream - Premium Treats</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+  /* Reset */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0; font-family: 'Poppins', sans-serif;
+    background: #fdf6fb; color: #322740;
+    transition: background-color 0.4s ease, color 0.4s ease;
+    overflow-x: hidden;
+  }
+  body.dark {
+    background: #1a1926;
+    color: #e6d6f2;
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #aa76ff88;
+    border-radius: 16px;
+  }
+  body.dark ::-webkit-scrollbar-thumb {
+    background-color: #dabcffcc;
+  }
+
+  /* Navbar */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 24px 36px;
+    background: rgba(255 255 255 / 0.7);
+    backdrop-filter: saturate(180%) blur(18px);
+    box-shadow: 0 6px 30px rgb(170 118 255 / 0.2);
+    z-index: 100000;
+    transition: background-color 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease;
+  }
+  nav.shrink {
+    padding: 12px 36px;
+    background: rgba(255 255 255 / 0.95);
+    box-shadow: 0 9px 45px rgb(170 118 255 / 0.35);
+  }
+  body.dark nav {
+    background: rgba(26,25,38,0.85);
+    box-shadow: 0 6px 30px rgba(218,188,255,0.25);
+  }
+  body.dark nav.shrink {
+    background: rgba(18,16,34,0.99);
+  }
+  .logo {
+    font-weight: 800;
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    color: #ac56ff;
+    cursor: pointer;
+    user-select: none;
+    text-shadow: 0 0 12px #ac56ffaa;
+    transition: color 0.3s ease;
+  }
+  body.dark .logo { color: #ddbaff; text-shadow: 0 0 14px #ddbaffcc; }
+  .logo:hover, .logo:focus {
+    color: #8d43cc;
+    outline: none;
+  }
+
+  /* Nav links */
+  .nav-links {
+    display: flex; gap: 38px; align-items: center;
+  }
+  .nav-links a,
+  .nav-links button {
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 8px 22px;
+    border-radius: 26px;
+    color: #9f7ff6;
+    background: transparent;
+    border: 2px solid transparent;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.35s ease;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .nav-links a:hover,
+  .nav-links a:focus-visible,
+  .nav-links button:hover,
+  .nav-links button:focus-visible {
+    color: white;
+    background: #9f7ff6;
+    box-shadow:
+      0 0 14px #b193ff,
+      0 0 34px #b193ff99;
+    outline-offset: 3px;
+    outline: 3px solid #cbbdffcc;
+  }
+  .nav-links button:focus-visible,
+  .nav-links a:focus-visible {
+    outline-offset: 3px;
+  }
+  body.dark .nav-links a,
+  body.dark .nav-links button {
+    color: #ddbaffdd;
+  }
+  body.dark .nav-links a:hover,
+  body.dark .nav-links button:hover,
+  body.dark .nav-links a:focus-visible,
+  body.dark .nav-links button:focus-visible {
+    background: #ddbaffcc;
+    color: #2f1f49;
+    box-shadow:
+      0 0 18px #fae0ff,
+      0 0 48px #fae0ffcc;
+  }
+
+  /* Hamburger */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    gap: 6px;
+  }
+  .hamburger span {
+    display: block;
+    height: 3.4px;
+    background-color: #9f7ff6;
+    border-radius: 2px;
+    transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1);
+  }
+  body.dark .hamburger span {
+    background-color: #ddbaffdd;
+  }
+  .hamburger.active span:nth-child(1) {
+    transform: translateY(10px) rotate(45deg);
+  }
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.active span:nth-child(3) {
+    transform: translateY(-10px) rotate(-45deg);
+  }
+
+  /* Responsive */
+  @media (max-width: 940px) {
+    .nav-links {
+      position: fixed;
+      top: 72px;
+      right: 0;
+      width: 280px;
+      height: calc(100vh - 72px);
+      background: #fff;
+      box-shadow: -10px 0 40px rgba(159, 127, 246, 0.3);
+      padding: 48px 22px;
+      flex-direction: column;
+      gap: 32px;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.42, 0, 0.58, 1);
+      z-index: 999;
+    }
+    body.dark .nav-links {
+      background: #241f40;
+      box-shadow: -10px 0 40px rgba(221, 186, 255, 0.3);
+    }
+    .nav-links.open {
+      transform: translateX(0);
+    }
+    .hamburger {
+      display: flex;
+      z-index: 1000;
+    }
+  }
+
+  /* Hero Section */
+  .hero {
+    position: relative;
+    height: 90vh;
+    background-image:
+      linear-gradient(90deg,
+        rgba(159,127,246,0.85) 10%,
+        rgba(215,184,250,0.65) 35%,
+        rgba(159,127,246,0.85) 80%
+      ),
+      url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1400&q=80');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    padding: 0 20px;
+    overflow: hidden;
+  }
+  .hero h1 {
+    font-size: 4rem;
+    font-weight: 900;
+    text-shadow: 0 0 10px #ab7fff88;
+    margin-bottom: 16px;
+    user-select: none;
+  }
+  .hero p {
+    font-size: 1.3rem;
+    max-width: 500px;
+    user-select: text;
+    text-shadow: 0 0 6px #ab7fff66;
+    margin-bottom: 38px;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #bb79ff, #8543ff);
+    border: none;
+    padding: 16px 44px;
+    font-weight: 700;
+    font-size: 1.3rem;
+    border-radius: 36px;
+    cursor: pointer;
+    color: white;
+    box-shadow: 0 8px 25px #ab7fffcc;
+    transition: background 0.35s ease, box-shadow 0.35s ease, transform 0.3s ease;
+    user-select: none;
+    outline-offset: 4px;
+  }
+  .btn-primary:hover, .btn-primary:focus-visible {
+    background: linear-gradient(135deg, #8543ff, #bb79ff);
+    box-shadow: 0 14px 40px #ab7fffee;
+    transform: scale(1.07);
+    outline: none;
+  }
+
+  /* Flavors Section */
+  section.flavors {
+    max-width: 1120px;
+    margin: 72px auto 120px;
+    padding: 0 24px;
+  }
+  .flavors h2 {
+    font-weight: 900;
+    font-size: 2.8rem;
+    text-align: center;
+    margin-bottom: 48px;
+    color: #8543ff;
+    user-select: none;
+  }
+  .filters {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+  }
+  .filter-btn {
+    font-weight: 700;
+    font-size: 1.15rem;
+    background: none;
+    border: 3px solid #8543ff;
+    border-radius: 28px;
+    padding: 14px 36px;
+    cursor: pointer;
+    color: #8543ff;
+    user-select: none;
+    transition:
+      color 0.35s ease,
+      background-color 0.35s ease,
+      box-shadow 0.35s ease;
+  }
+  .filter-btn:focus-visible,
+  .filter-btn:hover {
+    outline: none;
+    color: white;
+    background-color: #8543ff;
+    box-shadow:
+      0 0 28px #bb79ff88,
+      0 0 52px #bb79ffcc;
+  }
+  .filter-btn.active {
+    color: white;
+    background-color: #bb79ff;
+    box-shadow:
+      0 0 34px #bb79ffcc,
+      0 0 66px #bb79ffcc;
+  }
+  body.dark .filter-btn {
+    border-color: #dabcff;
+    color: #dabcffcc;
+  }
+  body.dark .filter-btn.active,
+  body.dark .filter-btn:hover,
+  body.dark .filter-btn:focus-visible {
+    background-color: #dabcffaa;
+    color: #322740;
+    box-shadow:
+      0 0 34px #dabcffcc,
+      0 0 66px #dabcffcc;
+  }
+  /* Grid with fade animation */
+  .flavors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+    gap: 32px;
+  }
+  .flavor-card {
+    background: white;
+    border-radius: 30px;
+    padding: 28px 30px 40px;
+    text-align: center;
+    box-shadow:
+      0 12px 32px rgb(171 123 255 / 0.12),
+      inset 0 0 32px rgb(215 217 255 / 0.06);
+    cursor: grab;
+    user-select: none;
+    position: relative;
+    transition: transform 0.35s cubic-bezier(0.22, 0.68, 0.4, 1), box-shadow 0.35s;
+    opacity: 1;
+  }
+  body.dark .flavor-card {
+    background: #2e2a49dd;
+    color: #ccbaffcc;
+    box-shadow:
+      0 12px 24px rgb(107 81 163 / 0.28),
+      inset 0 0 35px rgb(183 177 244 / 0.14);
+  }
+  .flavor-card:hover {
+    transform: translateY(-8px) scale(1.06);
+    box-shadow:
+      0 20px 48px rgb(171 123 255 / 0.28),
+      inset 0 0 48px rgb(215 217 255 / 0.1);
+    z-index: 10;
+  }
+  .flavor-icon {
+    font-size: 50px;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 4px #8543ff44);
+    transition: filter 0.33s ease;
+  }
+  .flavor-card:hover .flavor-icon {
+    filter: drop-shadow(0 0 24px #bb79ff);
+  }
+  .flavor-name {
+    font-weight: 900;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #8543ff;
+  }
+  body.dark .flavor-name {
+    color: #dabcff;
+  }
+  .flavor-desc {
+    font-size: 1.05rem;
+    line-height: 1.4;
+    color: #534569dd;
+    margin-bottom: 26px;
+    user-select: text;
+  }
+  body.dark .flavor-desc {
+    color: #b1a3dbcc;
+  }
+  /* Add to cart button advanced style */
+  .add-cart-btn {
+    background: linear-gradient(135deg, #bb79ff, #8543ff);
+    border: none;
+    padding: 14px 38px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-radius: 38px;
+    cursor: pointer;
+    color: white;
+    box-shadow: 0 6px 32px #ac56ffbb;
+    transition: background 0.33s ease, box-shadow 0.33s ease, transform 0.33s ease;
+    user-select: none;
+    outline-offset: 4px;
+  }
+  .add-cart-btn:hover,
+  .add-cart-btn:focus-visible {
+    outline: none;
+    background: linear-gradient(315deg, #8543ff, #bb79ff);
+    box-shadow: 0 10px 48px #ac56ffdd;
+    transform: scale(1.05);
+  }
+
+  /* Cart Sidebar */
+  .cart-sidebar {
+    position: fixed;
+    top: 0; right: 0;
+    width: 360px;
+    height: 100vh;
+    background: #eeeeff;
+    box-shadow: -8px 0 34px #ac56ffaa;
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.42,0,0.58,1);
+    z-index: 15000;
+    display: flex;
+    flex-direction: column;
+  }
+  body.dark .cart-sidebar {
+    background: #362e55cc;
+    box-shadow: -8px 0 34px #dabcffbb;
+  }
+  .cart-sidebar.open {
+    transform: translateX(0);
+  }
+  .cart-header {
+    font-size: 1.7rem;
+    font-weight: 800;
+    background: #ba9fff;
+    padding: 28px 24px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-shadow: 0 0 14px #ac56ffcc;
+    user-select: none;
+  }
+  body.dark .cart-header {
+    background: linear-gradient(135deg, #dabcffcc, #b2a0fecc);
+    color: #2e2641dd;
+    text-shadow: none;
+  }
+  .cart-close {
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 0;
+    transition: color 0.3s ease;
+  }
+  .cart-close:hover,
+  .cart-close:focus-visible {
+    color: #ffdfff;
+    outline: none;
+  }
+  .cart-items {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 28px 24px;
+    font-size: 1.05rem;
+  }
+  .cart-empty {
+    color: #7777aa;
+    text-align: center;
+    margin-top: 72px;
+    font-style: italic;
+    user-select: none;
+  }
+  .cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #ccaeff88;
+    margin-bottom: 18px;
+    user-select: none;
+  }
+  body.dark .cart-item {
+    border-color: #ccbaffaa;
+  }
+  .cart-item-info {
+    flex-grow: 1;
+  }
+  .cart-item-name {
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: #632f9a;
+  }
+  body.dark .cart-item-name {
+    color: #dabcffcc;
+  }
+  .cart-item-qty {
+    font-size: 0.9rem;
+    color: #8c68be;
+  }
+  body.dark .cart-item-qty {
+    color: #a787cacc;
+  }
+  .qty-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: 16px;
+  }
+  .qty-btn {
+    background: #ac56ffcc;
+    border: none;
+    color: white;
+    font-weight: 800;
+    font-size: 1.25rem;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    user-select: none;
+    transition: background-color 0.3s ease;
+  }
+  .qty-btn:hover, .qty-btn:focus-visible {
+    background: #8543ff;
+    outline: none;
+  }
+  .remove-btn {
+    margin-left: 10px;
+    background: transparent;
+    border: none;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: #ac56ffcc;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.3s ease;
+  }
+  .remove-btn:hover,
+  .remove-btn:focus-visible {
+    color: #8543ff;
+    outline: none;
+  }
+  /* Cart footer */
+  .cart-footer {
+    padding: 24px 24px;
+    font-weight: 700;
+    font-size: 1.4rem;
+    border-top: 2px solid #ccaeffaa;
+    color: #632f9a;
+    user-select: none;
+    background: #c7b3ffcc;
+    text-align: right;
+  }
+  body.dark .cart-footer {
+    background: #a68cffdd;
+    color: #412e63dd;
+  }
+  /* Checkout button */
+  .btn-checkout {
+    margin-top: 12px;
+    background: #8543ff;
+    color: white;
+    border: none;
+    border-radius: 44px;
+    padding: 14px 42px;
+    font-weight: 700;
+    font-size: 1.3rem;
+    cursor: pointer;
+    box-shadow:
+      0 8px 34px #ac56ffcc;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    user-select: none;
+    display: block;
+    width: 100%;
+  }
+  .btn-checkout:hover,
+  .btn-checkout:focus-visible {
+    outline: none;
+    box-shadow:
+      0 12px 42px #bb79ffcc;
+    transform: scale(1.05);
+  }
+  /* Testimonials */
+  .testimonials {
+    max-width: 720px;
+    margin: 96px auto 140px;
+    padding: 0 24px;
+    text-align: center;
+  }
+  .testimonials h2 {
+    color: #8543ff;
+    font-weight: 900;
+    font-size: 2.8rem;
+    margin-bottom: 48px;
+    user-select: none;
+  }
+  .testimonial-slide {
+    font-style: italic;
+    font-size: 1.25rem;
+    min-height: 110px;
+    color: #6d5e85cc;
+    user-select: text;
+    opacity: 1;
+    max-width: 600px;
+    margin: 0 auto 20px;
+    transition: opacity 0.6s ease;
+  }
+  body.dark .testimonial-slide {
+    color: #bca6d6dd;
+  }
+  .testimonial-author {
+    font-weight: 700;
+    color: #8543ffcc;
+    font-size: 1.1rem;
+    user-select: none;
+  }
+  body.dark .testimonial-author {
+    color: #dabcffcc;
+  }
+  .testimonial-controls {
+    display: flex;
+    justify-content: center;
+    gap: 36px;
+    margin-top: 32px;
+  }
+  .testimonial-btn {
+    border: none;
+    background: #caafff44;
+    color: #8543ff;
+    font-weight: 900;
+    font-size: 1.6rem;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow:
+      0 0 18px #ac56ffbb;
+    user-select: none;
+    transition: background 0.3s ease, color 0.3s ease;
+    outline-offset: 3px;
+  }
+  .testimonial-btn:hover,
+  .testimonial-btn:focus-visible {
+    background: #a476ffcc;
+    color: white;
+    outline: none;
+  }
+  body.dark .testimonial-btn {
+    background: #dabcff66;
+    color: #542aa8cc;
+  }
+  body.dark .testimonial-btn:hover,
+  body.dark .testimonial-btn:focus-visible {
+    background: #bbaaeeee;
+    color: #3c268bcc;
+  }
+
+  /* Dark Mode Toggle */
+  #theme-toggle {
+    position: fixed;
+    bottom: 34px;
+    left: 32px;
+    width: 56px;
+    height: 30px;
+    border-radius: 18px;
+    cursor: pointer;
+    background: linear-gradient(90deg,#d7c8ff, #8543ff);
+    box-shadow: 0 0 20px #ac56ffbb;
+    border: none;
+    outline: none;
+    z-index: 20000;
+  }
+  #theme-toggle[data-theme="dark"] {
+    background: linear-gradient(90deg,#302f4f, #9369ff);
+    box-shadow: 0 0 20px #debcffcc;
+  }
+  #theme-toggle .slider {
+    position: absolute;
+    top: 2px;
+    bottom: 2px;
+    left: 2px;
+    width: 26px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 3px 11px #ac56ffdd;
+    transition: left 0.32s cubic-bezier(0.42,0,0.58,1);
+  }
+  #theme-toggle[data-theme="dark"] .slider {
+    left: 28px;
+    background: #dabfffdd;
+    box-shadow: 0 3px 11px #a678ffcc;
+  }
+.flavor-icon img {
+  width: 96px; /* 64px × 1.5 */
+  height: 96px; /* 64px × 1.5 */
+  object-fit: contain;
+  border-radius: 16px;
+  box-shadow: 0 0 8px rgba(171, 123, 255, 0.3);
+  transition: box-shadow 0.3s ease;
+  user-select: none;
+  pointer-events: none;
+}
+.flavor-card:hover .flavor-icon img {
+  box-shadow: 0 0 20px #bb79ffcc;
+}
+
+
+
+</style>
+</head>
+<body>
+<nav role="navigation" aria-label="Primary navigation" id="navbar">
+  <div class="logo" tabindex="0" role="link" aria-label="Home" onclick="smoothScroll('hero')" onkeypress="if(event.key==='Enter')smoothScroll('hero')">S & S Ice-Cream</div>
+  <div class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" role="button" tabindex="0" aria-controls="nav-links" aria-haspopup="true">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <div class="nav-links" id="nav-links" role="menu">
+    <a href="#hero" role="menuitem" tabindex="0" onclick="closeMobileMenu()">Home</a>
+    <a href="#flavors" role="menuitem" tabindex="0" onclick="closeMobileMenu()">Menu</a>
+    <button id="cart-btn" aria-label="Open shopping cart" tabindex="0" class="nav-cart-btn"><span aria-hidden="true">🛒</span></button>
+  </div>
+</nav>
+
+<section class="hero" id="hero" aria-labelledby="hero-title" role="region">
+  <h1 id="hero-title">Delight in S & S Ice Cream</h1>
+  <p>Discover artisan flavors, hand-crafted from the freshest ingredients.<br>A world of joy and sweetness awaits in every scoop.</p>
+  <button class="btn-primary" id="orderBtn" aria-label="Order your treat now">Order Your Treat</button>
+</section>
+
+<section class="flavors" id="flavors" aria-labelledby="flavors-title" role="region">
+  <h2 id="flavors-title">Our Flavors</h2>
+  <div class="filters" role="group" aria-label="Filter ice cream flavors">
+    <button class="filter-btn active" data-filter="all" aria-pressed="true" tabindex="0">All</button>
+    <button class="filter-btn" data-filter="classic" aria-pressed="false" tabindex="0">Classic</button>
+    <button class="filter-btn" data-filter="fruit" aria-pressed="false" tabindex="0">Fruit</button>
+    <button class="filter-btn" data-filter="special" aria-pressed="false" tabindex="0">Special</button>
+  </div>
+  <div class="flavors-grid" aria-live="polite" aria-relevant="additions removals" role="list">
+    <article class="flavor-card" data-type="classic" role="listitem" tabindex="0" aria-label="Chocolate Bliss flavor, silky chocolate with dark chunks.">
+      <div class="flavor-icon" aria-hidden="true">
+  <img src="chocolate.png" alt="Chocolate Bliss ice cream" />
+</div>
+
+      <div class="flavor-name">Chocolate Bliss</div>
+      <p class="flavor-desc">Silky chocolate with dark chunks &amp; a creamy finish.</p>
+      <button class="add-cart-btn" aria-label="Add Chocolate Bliss to cart">Add to Cart</button>
+    </article>
+    <article class="flavor-card" data-type="fruit" role="listitem" tabindex="0" aria-label="Strawberry Dream flavor, fresh berry puree.">
+      <div class="flavor-icon" aria-hidden="true">
+  <img src="staberrary.png" alt="staberrary ice cream" />
+</div>
+
+      <div class="flavor-name">Strawberry Dream</div>
+      <p class="flavor-desc">Fresh berry puree swirled with delicate vanilla.</p>
+      <button class="add-cart-btn" aria-label="Add Strawberry Dream to cart">Add to Cart</button>
+    </article>
+    <article class="flavor-card" data-type="fruit" role="listitem" tabindex="0" aria-label="Mango Magic flavor, juicy mangoes smooth and refreshing.">
+      <div class="flavor-icon" aria-hidden="true">
+  <img src="mango.png" alt="Mango ice cream" />
+</div>
+
+      <div class="flavor-name">Mango Magic</div>
+      <p class="flavor-desc">Juicy mangoes, smooth and refreshing all in one scoop.</p>
+      <button class="add-cart-btn" aria-label="Add Mango Magic to cart">Add to Cart</button>
+    </article>
+    <article class="flavor-card" data-type="classic" role="listitem" tabindex="0" aria-label="Classic Vanilla flavor, pure French vanilla.">
+      <div class="flavor-icon" aria-hidden="true">
+  <img src="vainila.png" alt=" ice cream" />
+</div>
+
+      <div class="flavor-name">Classic Vanilla</div>
+      <p class="flavor-desc">Pure, French vanilla with a cloud of real vanilla bean.</p>
+      <button class="add-cart-btn" aria-label="Add Classic Vanilla to cart">Add to Cart</button>
+    </article>
+    <article class="flavor-card" data-type="special" role="listitem" tabindex="0" aria-label="Honey Crunch flavor, sweet honey ribbons and crunchy almond pieces.">
+      <div class="flavor-icon" aria-hidden="true">
+  <img src="paista.png" alt="paista ice cream" />
+</div>
+
+      <div class="flavor-name">Chocolate Crunch</div>
+      <p class="flavor-desc">Sweet Chocolate ribbons and crunchy almond pieces.</p>
+      <button class="add-cart-btn" aria-label="Add Honey Crunch to cart">Add to Cart</button>
+    </article>
+    
+  </div>
+</section>
+
+<section class="testimonials" role="region" aria-label="Customer testimonials">
+  <h2>What Our Customers Say</h2>
+  <p class="testimonial-slide" tabindex="0" aria-live="polite" aria-atomic="true"></p>
+  <p class="testimonial-author" tabindex="0"></p>
+  <div class="testimonial-controls" role="group" aria-label="Next and Previous Testimonials">
+    <button class="testimonial-btn" aria-label="Previous testimonial">&larr;</button>
+    <button class="testimonial-btn" aria-label="Next testimonial">&rarr;</button>
+  </div>
+</section>
+
+<aside class="cart-sidebar" id="cart-sidebar" aria-hidden="true" aria-label="Shopping cart">
+  <div class="cart-header">
+    Your Cart
+    <button class="cart-close" aria-label="Close cart sidebar" id="cart-close">&times;</button>
+  </div>
+  <div class="cart-items" id="cart-items">
+    <p class="cart-empty">Your cart is empty.</p>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total" id="cart-total">Total: $0.00</div>
+    <button class="btn-checkout" id="checkout-btn" aria-label="Checkout">Checkout</button>
+  </div>
+</aside>
+
+
+
+<script>
+  // Smooth scroll helper
+  function smoothScroll(id) {
+    document.getElementById(id).scrollIntoView({behavior:'smooth'});
+  }
+
+  // Navbar shrink on scroll
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('shrink', window.scrollY > 70);
+  });
+
+  // Hamburger toggle
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('nav-links');
+  hamburger.addEventListener('click', () => {
+    const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+    hamburger.setAttribute('aria-expanded', String(!expanded));
+    hamburger.classList.toggle('active');
+    navLinks.classList.toggle('open');
+  });
+  hamburger.addEventListener('keypress', e => {
+    if(e.key === 'Enter' || e.key === ' '){
+      e.preventDefault();
+      hamburger.click();
+    }
+  });
+
+  // Close mobile menu on nav link click
+  function closeMobileMenu() {
+    if(window.innerWidth <= 940) {
+      hamburger.setAttribute('aria-expanded', 'false');
+      hamburger.classList.remove('active');
+      navLinks.classList.remove('open');
+    }
+  }
+
+  // Filter flavors
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const flavorCards = document.querySelectorAll('.flavor-card');
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterButtons.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
+      const filter = btn.dataset.filter;
+      flavorCards.forEach(card => {
+        if(filter === 'all' || card.dataset.type === filter){
+          card.style.opacity = 0;
+          card.style.display = 'block';
+          setTimeout(() => {
+            card.style.opacity = 1;
+          }, 10);
+        } else {
+          card.style.opacity = 0;
+          setTimeout(() => {
+            card.style.display = 'none';
+          }, 300);
+        }
+      });
+    });
+  });
+
+  // Cart functionality
+  const cartBtn = document.getElementById('cart-btn');
+  const cartSidebar = document.getElementById('cart-sidebar');
+  const cartCloseBtn = document.getElementById('cart-close');
+  const cartItemsContainer = document.getElementById('cart-items');
+  const cartTotal = document.getElementById('cart-total');
+  let cart = [];
+
+  // Update Cart UI 
+  function updateCartUI() {
+    cartItemsContainer.innerHTML = '';
+    if(cart.length === 0){
+      cartItemsContainer.innerHTML = '<p class="cart-empty">Your cart is empty.</p>';
+      cartTotal.textContent = 'Total: $0.00';
+      return;
+    }
+    let total = 0;
+    cart.forEach((item, idx) => {
+      total += item.price * item.qty;
+      const div = document.createElement('div');
+      div.className = 'cart-item';
+      div.innerHTML = `
+      <div class="cart-item-info">
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-qty">Qty: ${item.qty} × $${item.price.toFixed(2)}</div>
+      </div>
+      <div class="qty-controls">
+        <button aria-label="Decrease quantity of ${item.name}" class="qty-btn" data-action="minus" data-index="${idx}">−</button>
+        <button aria-label="Increase quantity of ${item.name}" class="qty-btn" data-action="plus" data-index="${idx}">+</button>
+        <button aria-label="Remove ${item.name} from cart" class="remove-btn" data-index="${idx}">×</button>
+      </div>
+      `;
+      cartItemsContainer.appendChild(div);
+    });
+    cartTotal.textContent = `Total: $${total.toFixed(2)}`;
+    // Attach listeners
+    cartItemsContainer.querySelectorAll('.qty-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        const idx = +btn.dataset.index;
+        if(btn.dataset.action === 'minus'){
+          if(cart[idx].qty > 1) cart[idx].qty--;
+          else cart.splice(idx,1);
+        } else if(btn.dataset.action === 'plus'){
+          cart[idx].qty++;
+        }
+        updateCartUI();
+      });
+    });
+    cartItemsContainer.querySelectorAll('.remove-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const idx = +btn.dataset.index;
+        cart.splice(idx,1);
+        updateCartUI();
+      });
+    });
+  }
+
+  // Open/Close Cart
+  cartBtn.addEventListener('click', () => {
+    if(cartSidebar.classList.contains('open')){
+      cartSidebar.classList.remove('open');
+      cartSidebar.setAttribute('aria-hidden', 'true');
+    } else {
+      cartSidebar.classList.add('open');
+      cartSidebar.setAttribute('aria-hidden', 'false');
+      hamburger.setAttribute('aria-expanded', 'false');
+      hamburger.classList.remove('active');
+      navLinks.classList.remove('open');
+    }
+  });
+  cartCloseBtn.addEventListener('click', () => {
+    cartSidebar.classList.remove('open');
+    cartSidebar.setAttribute('aria-hidden', 'true');
+  });
+
+  // Add to Cart buttons
+  document.querySelectorAll('.add-cart-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.flavor-card');
+      const name = card.querySelector('.flavor-name').textContent;
+      const price = 5.99; // example flat price
+      const existingItem = cart.find(item => item.name === name);
+      if(existingItem) {
+        existingItem.qty++;
+      } else {
+        cart.push({name, price, qty: 1});
+      }
+      updateCartUI();
+      cartSidebar.classList.add('open');
+      cartSidebar.setAttribute('aria-hidden', 'false');
+    });
+  });
+
+  // Testimonials Carousel
+  const testimonials = [
+    {text: "Absolutely loved the Mango Magic! So fresh and real.", author: "MR.Shahid."},
+    {text: "The Choco Bliss melts on your tongue. Cozy place and friendly people.", author: "MR.Sunny."},
+    {text: "Obsessed with the Matcha Zen. Highly recommend the Honey Crunch!", author: "MR.Sumit."}
+  ];
+  const testimonialText = document.querySelector('.testimonial-slide');
+  const testimonialAuthor = document.querySelector('.testimonial-author');
+  const [prevBtn, nextBtn] = document.querySelectorAll('.testimonial-btn');
+  let testIndex = 0;
+
+  function showTestimonial(idx) {
+    testimonialText.style.opacity = 0;
+    testimonialAuthor.style.opacity = 0;
+    setTimeout(() => {
+      testimonialText.textContent = `“${testimonials[idx].text}”`;
+      testimonialAuthor.textContent = `– ${testimonials[idx].author}`;
+      testimonialText.style.opacity = 1;
+      testimonialAuthor.style.opacity = 1;
+    }, 300);
+  }
+  showTestimonial(testIndex);
+
+  prevBtn.addEventListener('click', () => {
+    testIndex = (testIndex - 1 + testimonials.length) % testimonials.length;
+    showTestimonial(testIndex);
+  });
+  nextBtn.addEventListener('click', () => {
+    testIndex = (testIndex + 1) % testimonials.length;
+    showTestimonial(testIndex);
+  });
+
+  // Dark/Light toggle
+  const themeToggle = document.getElementById('theme-toggle');
+  function setTheme(theme) {
+    if(theme === 'dark'){
+      document.body.classList.add('dark');
+      themeToggle.setAttribute('aria-checked','true');
+      themeToggle.dataset.theme = 'dark';
+      localStorage.setItem('theme','dark');
+    } else {
+      document.body.classList.remove('dark');
+      themeToggle.setAttribute('aria-checked','false');
+      themeToggle.dataset.theme = 'light';
+      localStorage.setItem('theme','light');
+    }
+  }
+  themeToggle.addEventListener('click', () => {
+    setTheme(themeToggle.dataset.theme === 'light' ? 'dark' : 'light');
+  });
+  window.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('theme');
+    if(savedTheme){
+      setTheme(savedTheme);
+    } else {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setTheme(prefersDark ? 'dark' : 'light');
+    }
+  });
+
+  // Order button alert (placeholder)
+  document.getElementById('orderBtn').addEventListener('click', () => {
+    alert('Ordering coming soon! Stay tuned for delicious treats.');
+  });
+</script>
+</body>
+</html>
